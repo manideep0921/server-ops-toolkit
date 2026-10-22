@@ -1,0 +1,6 @@
+[Unit]
+Description=Server health check
+
+[Service]
+Type=oneshot
+ExecStart=/opt/server-ops-toolkit/scripts/healthcheck.sh -p 22 -p 80 -u http://127.0.0.1/
