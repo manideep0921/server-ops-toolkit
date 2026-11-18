@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 # Minimal self-contained test runner (no external deps).
 set -uo pipefail
+# These scripts and tests target Linux (they read /proc and use GNU coreutils such as `touch -d`).
+if [[ "$(uname -s)" != "Linux" ]]; then
+  echo "tests/run-tests.sh requires Linux (found $(uname -s)); run it on Ubuntu or in a Linux container." >&2
+  exit 2
+fi
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-export LOG_FILE="$(mktemp)"
+LOG_FILE="$(mktemp)"; export LOG_FILE
 pass=0; failn=0
 ok()   { echo "ok   - $1"; pass=$((pass+1)); }
 nok()  { echo "FAIL - $1"; failn=$((failn+1)); }
