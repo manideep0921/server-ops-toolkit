@@ -24,6 +24,7 @@ Schedule the health check with the included systemd timer
 `*/5 * * * * /opt/server-ops-toolkit/scripts/healthcheck.sh -p 80`
 
 ## Tests
+Linux only (the scripts read `/proc` and the tests use GNU coreutils); on macOS the runner exits with a clear message.
 ```bash
 ./tests/run-tests.sh
 ```
